@@ -1,0 +1,11 @@
+,Feature,Component 1,Component 2,Component 3
+0,Min grad angle(rad/C),0.33,-0.284,-0.331
+1,Storage modulus at min grad angle(Pa),0.412,-0.071,0.218
+2,Storage modulus at room temperature(Pa),0.414,-0.048,0.216
+3,Loss modulus(Pa),0.412,-0.029,0.228
+4,Gelification temperature(C),-0.171,0.426,0.355
+5,Yield strain(%),-0.063,-0.189,0.724
+6,Young's modulus(Pa*10^6),0.236,0.508,-0.132
+7,Storacell(%),0.421,-0.108,0.095
+8,Benecel(%),0.066,0.572,0.127
+9,Density(kg/m^3),0.332,0.312,-0.227
