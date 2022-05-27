@@ -133,7 +133,7 @@ if len(X_data.columns) == 1:
 
     # Interpolate
     # Color: https://waldyrious.net/viridis-palette-generator/
-    mu_val, std_val = add_methods.gp_pred(gpr, X_pred)
+    mu_val, std_val = gpr.predict(X_pred, return_std=True)
 
     fig.add_trace(go.Scatter(
         x=x_val, y=mu_val - std_val, line_width=0,
@@ -159,8 +159,7 @@ if len(X_data.columns) == 1:
 
     # Calculate output value
     X_input = pd.DataFrame({X_data.columns[0]: [input_values[0]]})
-    output_value, std_val = add_methods.gp_pred(gpr, X_input)
-    output_value = output_value[0]
+    output_value = gpr.predict(X_input)[0]
 elif len(X_data.columns) == 2:
     # Create grid
     n = 100
@@ -173,9 +172,8 @@ elif len(X_data.columns) == 2:
     X_pred = np.c_[xx.ravel(), yy.ravel()]
 
     # Interpolate
-    mu_val, std_val = add_methods.gp_pred(gpr, X_pred)
+    mu_val = gpr.predict(X_pred)
     mu_val = np.array(mu_val).reshape((n, n))
-    std_val = np.array(std_val).reshape((n, n))
 
     fig = go.Figure(data=[
         go.Surface(
@@ -198,8 +196,7 @@ elif len(X_data.columns) == 2:
 
     # Calculate output value
     X_input = pd.DataFrame({ x: y for x, y in zip(X_data.columns, [[input_values[0]], [input_values[1]]]) })
-    output_value, std_val = add_methods.gp_pred(gpr, X_input)
-    output_value = output_value[0]
+    output_value = gpr.predict(X_input)[0]
 elif len(X_data.columns) == 3:
     # Create grid
     n = 10
@@ -212,7 +209,7 @@ elif len(X_data.columns) == 3:
     X_pred = np.c_[xx.ravel(), yy.ravel(), zz.ravel()]
 
     # Interpolate
-    mu_val, std_val = add_methods.gp_pred(gpr, X_pred)
+    mu_val = gpr.predict(X_pred)
 
     fig = go.Figure(data=[
         go.Scatter3d(
@@ -237,8 +234,7 @@ elif len(X_data.columns) == 3:
 
     # Calculate output value
     X_input = pd.DataFrame({ x: y for x, y in zip(X_data.columns, [[input_values[0]], [input_values[1]], [input_values[2]]]) })
-    output_value, std_val = add_methods.gp_pred(gpr, X_input)
-    output_value = output_value[0]
+    output_value = gpr.predict(X_input)[0]
 
 # Return output graph
 fig.write_html('figures/general_view.html')
@@ -250,8 +246,8 @@ print('Output value of {}: {}'.format(Y_data.columns[0], round(output_value, 3))
 print('-----------END-----------\n')
 
 # Model error
-mu_val_train, std_val_train = add_methods.gp_pred(gpr, X_train)
-mu_val_val, std_val_val = add_methods.gp_pred(gpr, X_val)
+mu_val_train = gpr.predict(X_train)
+mu_val_val, std_val_val = gpr.predict(X_val, return_std=True)
 
 train_error, val_error = add_methods.gp_error(mu_val_train, mu_val_val, std_val_val, X_val, Y_train, Y_val)
 

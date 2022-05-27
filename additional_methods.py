@@ -18,13 +18,6 @@ def split_data(X_sample, Y_sample, test_size, seed):
 
     return (X_train, X_val, Y_train, Y_val)
 
-def gp_pred(gpr, X_val):
-    """Predict values on validation data"""
-    mu_val, std_val = gpr.predict(X_val, return_std=True)
-    mu_val = [ x[0] for x in mu_val ]
-
-    return (mu_val, std_val)
-
 def gp_error(mu_val_train, mu_val_val, std_val_val, X_val, Y_train, Y_val):
     # Calculate relative difference between the target values and predicted values
     error_train = 100 * np.abs(np.divide(Y_train[Y_train.columns[0]] - mu_val_train, Y_train[Y_train.columns[0]]))
