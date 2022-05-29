@@ -67,7 +67,7 @@ The program has various additional arguments that are listed here:
 python main_program.py --input Min` grad` angle`(rad/C`) --input Benecel`(%`)
 ```
 
-Note: Special characters such as whitespaces and parentheses need to have the escape character '`' in front of them.
+Note: Special characters such as whitespaces and parentheses need to have the escape character '\`' in front of them. If you are using Linux bash instead of PowerShell, the escape character is '\\' instead of '\`'.
 
 You can add everything from 1 to 3 different inputs to the program. The predictions printed in the terminal as well as the figures in the "figures" -folder will all change depending on which input variables you choose to use for your prediction.
 
